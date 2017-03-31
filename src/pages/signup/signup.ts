@@ -33,9 +33,7 @@ export class SignupPage {
     this.authService.signup(form.value.email, form.value.password)
       .then(data => {
         loading.dismiss();
-        const newUser = this.authService.getActiveUser();
-        console.log(newUser);
-        this.addUserInfo(newUser.uid, form.value.role);
+        this.addUserInfo(form.value.name, form.value.role);
       })
       .catch(error => {
         loading.dismiss();
@@ -48,7 +46,15 @@ export class SignupPage {
       });
   }
 
-  private addUserInfo(uid: string, role: string) {
-    this.authService.addUserInfo(uid, role);
+  private addUserInfo(name: string, role: string) {
+    this.authService.addUserInfo(name, role)
+      .then(data => {
+        console.log(data);
+        const user = this.authService.getActiveUser();
+        console.log(user);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }

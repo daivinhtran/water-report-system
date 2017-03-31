@@ -16,9 +16,11 @@ export class AuthService {
     return firebase.auth().createUserWithEmailAndPassword(email, password);
   }
 
-  addUserInfo(uid: string, role: string) {
-    firebase.database().ref('users/' + uid).set({
-      role: role
+  addUserInfo(name: string, role: string) {
+    const user = this.getActiveUser();
+    return user.updateProfile({
+      displayName: name,
+      photoURL: role
     });
   }
 
