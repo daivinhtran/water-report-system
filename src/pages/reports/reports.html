@@ -26,7 +26,7 @@
           [longitude]="location.lng"
           [zoom]="14">
           <sebm-google-map-marker
-            *ngFor="let report of reports; let i = index"
+            *ngFor="let report of reports"
             [latitude]="report.location.lat"
             [longitude]="report.location.lng">
             <sebm-google-map-info-window>
@@ -35,7 +35,7 @@
               <h6><strong>virusppm: </strong>{{ report.virusppm }}</h6>
               <h6><strong>contppm: </strong>{{ report.contppm }}</h6>
               <h6><strong>reporter: </strong>{{ report.reporter }}</h6>
-              <button ion-button small icon-only round outline (click)="onReportEditClicked(report, i)">
+              <button ion-button small icon-only round outline (click)="onReportEditClicked(report)">
                 <ion-icon name="create"></ion-icon>
               </button>
             </sebm-google-map-info-window>

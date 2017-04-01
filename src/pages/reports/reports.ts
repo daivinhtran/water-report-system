@@ -20,6 +20,7 @@ export class ReportsPage {
     lng: -84.0008426
   };
   locationIsSet: boolean = true;
+  role: string = "Basic";
 
   constructor(
     public navCtrl: NavController,
@@ -36,26 +37,43 @@ export class ReportsPage {
   }
 
   ionViewCanEnter() {
+      this.loadReports();
+  }
+
+  private loadReports() {
     this.reports = [];
+    let reportsRaw: Report[] = [];
     this.reportService.fetchReports()
       .then(
         (reports) => {
           reports.forEach((report) => {
-            this.keys.push(report.key);
-            this.reports.push(report.val());
+            reportsRaw.push(report.val());
           });
+          let reportsIndex = {}; // name -> index of the report in reports
+          for (let report of reportsRaw) {
+            const index = reportsIndex[report.name];
+            if (index == undefined) {
+              this.reports.push(report);
+              reportsIndex[report.name] = this.reports.length - 1;
+            } else {
+              console.log(report);
+              console.log(this.reports[index]);
+              if (report.timestamp > this.reports[index].timestamp) {
+                console.log('swap');
+                this.reports[index] = report;
+              }
+            }
+          }
           console.log(this.reports);
-        });
+      });
   }
 
   onNewReport() {
     this.navCtrl.push(NewReportPage);
   }
 
-  onReportEditClicked(report: Report, index: number) {
-    const key = this.keys[index];
+  onReportEditClicked(report: Report) {
     this.navCtrl.push(NewReportPage, {report: report, mode: 'Edit'});
-    console.log(report, index);
   }
 
   // private onLocate() {
