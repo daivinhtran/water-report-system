@@ -22,7 +22,7 @@
           required>
         </ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="role != 'User'">
         <ion-label fixed>Condition</ion-label>
         <ion-select ngModel name="condition" required [ngModel]="report?.condition">
           <ion-option [value]="Safe">Safe</ion-option>
@@ -30,24 +30,22 @@
           <ion-option [value]="Unsafe">Unsafe</ion-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="role != 'User'">
         <ion-label fixed>Virus PPM</ion-label>
         <ion-input
           type="number"
           name="virusppm"
           ngModel
-          [ngModel]="report?.virusppm"
-          required>
+          [ngModel]="report?.virusppm">
         </ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="role != 'User'">
         <ion-label fixed>Cont. PPM</ion-label>
         <ion-input
           type="number"
           name="contppm"
           ngModel
-          [ngModel]="report?.contppm"
-          required>
+          [ngModel]="report?.contppm">
         </ion-input>
       </ion-item>
     </ion-list>

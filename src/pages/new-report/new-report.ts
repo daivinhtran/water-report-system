@@ -9,7 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { ReportService } from '../../providers/report';
 import { Report } from '../../models/report';
-
+import { AuthService } from '../../providers/auth';
 
 @Component({
   selector: 'page-new-report',
@@ -22,7 +22,8 @@ export class NewReportPage implements OnInit {
   };
   locationIsSet = false;
   report: Report;
-  mode = 'Add';
+  mode: string = 'Add';
+  role: string = 'User';
 
   constructor(
     private navParams: NavParams,
@@ -31,7 +32,8 @@ export class NewReportPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private geolocation: Geolocation,
-    private reportService: ReportService) {
+    private reportService: ReportService,
+    private authService: AuthService) {
 
   }
 
@@ -47,6 +49,10 @@ export class NewReportPage implements OnInit {
       };
       this.locationIsSet = true;
     }
+
+    const userRaw = this.authService.getActiveUser();
+    this.role = userRaw.photoURL;
+    console.log(this.role);
   }
 
   onSubmit(form: NgForm) {
