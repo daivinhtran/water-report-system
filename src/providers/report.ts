@@ -30,7 +30,7 @@ export class ReportService {
       virusppm: report.virusppm,
       contppm: report.contppm,
       location: report.location,
-      time: report.timestamp
+      timestamp: report.timestamp
     });
   }
 
