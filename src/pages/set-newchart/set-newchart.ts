@@ -17,10 +17,9 @@ export class SetNewchartPage {
     console.log('ionViewDidLoad SetNewchartPage');
   }
 
-  onAdd(form: NgForm) {
-    console.log(form);
+  onAddNewChart(form: NgForm) {
     this.viewCtrl.dismiss({
-      form: 'test'
+      form: form.value
     });
   }
 
