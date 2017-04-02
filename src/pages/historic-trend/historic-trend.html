@@ -24,11 +24,9 @@
 
 <ion-content padding>
   <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+              *ngFor="let chart of charts"
+              [data]="chart.dataset"
+              [labels]="months"
+              [options]="chart.options"
+              [chartType]="'line'"></canvas>
 </ion-content>

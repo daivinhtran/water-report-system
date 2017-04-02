@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { SetNewchartPage } from '../set-newchart/set-newchart';
+import { ReportService } from '../../providers/report';
 
 /*
   Generated class for the HistoricTrend page.
@@ -13,11 +14,18 @@ import { SetNewchartPage } from '../set-newchart/set-newchart';
   templateUrl: 'historic-trend.html'
 })
 export class HistoricTrendPage {
+  months: string[] = ['Jan', 'Feb', 'Mar',
+            'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep',
+            'Oct', 'Nov', 'Dec'];
+
+  charts: any[] = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private modalCtrl: ModalController) {}
+    private modalCtrl: ModalController,
+    private reportService: ReportService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HistoricTrendPage');
@@ -29,31 +37,80 @@ export class HistoricTrendPage {
     modal.onDidDismiss(
       data => {
         if (data) {
-          console.log(data);
+          this.getHistory(data.form.name, parseInt(data.form.year), data.form.ppm);
         }
       });
   }
 
+  private getHistory(name: string, year: number, ppm: string) {
+    let filteredReports = [];
+    this.reportService.fetchReports()
+      .then(
+        (reports) => {
+          reports.forEach((reportRaw) => {
+            const report = reportRaw.val();
+            let reportYear = new Date(report.timestamp).getFullYear();
+            if (reportYear == year && report.name == name && report[ppm] != undefined) {
+              let reportMonth = new Date(report.timestamp).getMonth();
+              filteredReports.push({
+                month: reportMonth,
+                ppm: report[ppm]
+              });
+            }
 
-  public barChartOptions:any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-  public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
-
-  public barChartData:any[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
-  ];
-
-  // events
-  public chartClicked(e:any):void {
-    console.log(e);
+          });
+          console.log(filteredReports);
+          this.charts.push(this.makeChartData(filteredReports, name, ppm, year))
+          console.log(this.charts);
+      });
   }
 
-  public chartHovered(e:any):void {
-    console.log(e);
+  private makeChartData(filteredReports: any[], name: string, ppm: string, year: number) {
+    let data = [];
+
+    // putting ppm values into each bucket
+    for (let filteredReport of filteredReports) {
+      if (data[filteredReport.month] == undefined) {
+        data[filteredReport.month] = [];
+      }
+      data[filteredReport.month].push(filteredReport.ppm);
+    }
+    console.log(data);
+    for (let i in data) {
+      data[i] = this.average(data[i]);
+    }
+    console.log(data);
+
+    let tempData = [];
+    for (let i = 0; i < 12; i++) {
+      if (data[i] == undefined) {
+        tempData[i] = null;
+      } else {
+        tempData[i] = data[i];
+      }
+    }
+
+    return {
+      dataset: [tempData],
+      options: {
+        responsive: true,
+        legend: {
+            display: false
+        },
+        title: {
+            display: true,
+            text: name + ' ' + ppm + ' ' + year.toString(),
+            position: 'bottom'
+        }
+      }
+    }
+  }
+
+  private average(nums: number[]) {
+    let sum = 0;
+    for (let num of nums) {
+      sum += num;
+    }
+    return sum / nums.length;
   }
 }
