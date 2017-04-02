@@ -65,8 +65,6 @@ export class ReportsPage {
               }
             }
           }
-          console.log(this.reports);
-          console.log(this.authService.getActiveUser());
       });
   }
 
