@@ -1,4 +1,4 @@
 <ion-tabs>
   <ion-tab [root]="reportsPage" tabIcon="water" tabTitle="Reports"></ion-tab>
-  <ion-tab [root]="historicTrendPage" tabIcon="trending-up" tabTitle="Trend"></ion-tab>
+  <ion-tab [root]="historicTrendPage" tabIcon="trending-up" tabTitle="Trend" *ngIf="role=='Manager'"></ion-tab>
 </ion-tabs>

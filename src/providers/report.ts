@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Location } from '../models/location';
@@ -11,7 +10,6 @@ import firebase from 'firebase';
 @Injectable()
 export class ReportService {
   constructor(
-    public http: Http,
     private authService: AuthService) {
     console.log('Hello Report Provider');
   }

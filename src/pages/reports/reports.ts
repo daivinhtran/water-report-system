@@ -8,6 +8,8 @@ import { Report } from '../../models/report';
 import { Location} from '../../models/location';
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { AuthService } from '../../providers/auth';
+
 @Component({
   selector: 'page-reports',
   templateUrl: 'reports.html'
@@ -20,12 +22,13 @@ export class ReportsPage {
     lng: -84.0008426
   };
   locationIsSet: boolean = true;
-  role: string = "Basic";
+  role: string = "User";
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private reportService: ReportService,
+    private authService: AuthService,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     private geolocation: Geolocation) {
@@ -36,8 +39,9 @@ export class ReportsPage {
     console.log('ionViewDidLoad ReportsPage');
   }
 
-  ionViewCanEnter() {
+  ionViewWillEnter() {
       this.loadReports();
+      this.fetchRole();
   }
 
   private loadReports() {
@@ -56,16 +60,20 @@ export class ReportsPage {
               this.reports.push(report);
               reportsIndex[report.name] = this.reports.length - 1;
             } else {
-              console.log(report);
-              console.log(this.reports[index]);
               if (report.timestamp > this.reports[index].timestamp) {
-                console.log('swap');
                 this.reports[index] = report;
               }
             }
           }
           console.log(this.reports);
+          console.log(this.authService.getActiveUser());
       });
+  }
+
+  private fetchRole() {
+    const userRaw = this.authService.getActiveUser();
+    console.log(userRaw);
+    // this.role = userRaw.photoURL;
   }
 
   onNewReport() {

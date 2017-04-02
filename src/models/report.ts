@@ -9,5 +9,8 @@ export class Report {
     public contppm: number,
     public location: Location,
     public timestamp: number) {
+    if (!condition) this.condition = null;
+    if (!virusppm) this.virusppm = null;
+    if (!contppm) this.contppm = null;
   }
 }

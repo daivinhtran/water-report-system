@@ -2,12 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SigninPage } from '../pages/signin/signin';
 import { SignupPage } from '../pages/signup/signup';
-
 import firebase from 'firebase';
 
 import { AuthService } from '../providers/auth';
@@ -34,7 +31,6 @@ export class MyApp {
       authDomain: "water-report-system.firebaseapp.com",
       databaseURL: "https://water-report-system.firebaseio.com"
     });
-
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.isAuthenticated = true;
@@ -44,6 +40,16 @@ export class MyApp {
         this.rootPage = SigninPage;
       }
     });
+
+
+    let body = document.getElementsByTagName('body')[0];
+    let bundlejs = document.createElement('script');
+    bundlejs.setAttribute('src','assets/node_modules/chart.js/dist/Chart.bundle.min.js');
+    body.appendChild(bundlejs);
+    let chartjs = document.createElement('script');
+    chartjs.setAttribute('src','assets/node_modules/chart.js/dist/Chart.min.js');
+    body.appendChild(chartjs);
+
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.

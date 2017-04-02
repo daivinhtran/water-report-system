@@ -22,6 +22,10 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import { SetLocationPage } from '../pages/set-location/set-location';
 import { Geolocation } from '@ionic-native/geolocation';
 
+import { ChartsModule } from 'ng2-charts';
+
+import { SetNewchartPage } from '../pages/set-newchart/set-newchart';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -33,13 +37,15 @@ import { Geolocation } from '@ionic-native/geolocation';
     SigninPage,
     SignupPage,
     TabsPage,
-    SetLocationPage
+    SetLocationPage,
+    SetNewchartPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDbj0OG2KcUBzWQZ8kZ0dYBIUMpi4qAOJg'
-    })
+    }),
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,7 +58,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     SigninPage,
     SignupPage,
     TabsPage,
-    SetLocationPage
+    SetLocationPage,
+    SetNewchartPage
   ],
   providers: [
     StatusBar,

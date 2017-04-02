@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavParams, NavController } from 'ionic-angular';
 import { ModalController, LoadingController, ToastController } from 'ionic-angular';
@@ -80,7 +80,6 @@ export class NewReportPage implements OnInit {
     modal.onDidDismiss(
       data => {
         if (data) {
-          console.log(this.location);
           this.location = data.location;
           this.locationIsSet = true;
         }

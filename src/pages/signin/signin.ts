@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController, NavController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth';
-import { TabsPage } from '../../pages/tabs/tabs';
 
 @Component({
   selector: 'page-signin',

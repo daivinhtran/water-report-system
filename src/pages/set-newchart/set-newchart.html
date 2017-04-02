@@ -1,0 +1,101 @@
+<!--
+  Generated template for the SetNewchart page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add New Chart</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onAdd(f)">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Name</ion-label>
+        <ion-input
+          type="text"
+          ngModel
+          name="name" 
+          required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input
+          type="email"
+          ngModel
+          name="email" 
+          required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Password</ion-label>
+        <ion-input
+          type="password"
+          ngModel
+          name="password" 
+          required
+          [minlength]="6"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Role</ion-label>
+        <ion-select ngModel name="role" [(ngModel)]="role">
+          <ion-option [value]="User">User</ion-option>
+          <ion-option [value]="Worker">Worker</ion-option>
+          <ion-option [value]="Manager">Manager</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <button ion-button block type="submit" [disabled]="!f.valid">Signup</button>
+  </form>
+ <!--  <form #f="ngForm" (ngSubmit)="onAdd(f)">
+    <ion-grid>
+      <ion-list>
+        <ion-item>
+          <ion-label fixed>Name</ion-label>
+          <ion-input
+            type="text"
+            ngModel
+            name="name" 
+            required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Year</ion-label>
+          <ion-input
+            type="number"
+            ngModel
+            name="year" 
+            required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>PPM</ion-label>
+          <ion-select ngModel name="role" required>
+            <ion-option [value]="virusppm">virusppm</ion-option>
+            <ion-option [value]="contppm">contppm</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <button ion-button block type="submit" [disabled]="!f.valid">Signup</button>
+      <ion-row>
+        <ion-col>
+          <button
+            ion-button
+            block
+            color="secondary"
+            type="submit" [disabled]="!f.valid">Add</button>
+        </ion-col>
+        <ion-col>
+          <button
+            ion-button
+            block
+            color="danger"
+            (click)="onAbort()">Cancel</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form> -->
+</ion-content>

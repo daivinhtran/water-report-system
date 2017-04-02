@@ -35,7 +35,7 @@
               <h6><strong>virusppm: </strong>{{ report.virusppm }}</h6>
               <h6><strong>contppm: </strong>{{ report.contppm }}</h6>
               <h6><strong>reporter: </strong>{{ report.reporter }}</h6>
-              <button ion-button small icon-only round outline (click)="onReportEditClicked(report)">
+              <button ion-button small icon-only round outline (click)="onReportEditClicked(report)" *ngIf="role != 'User'">
                 <ion-icon name="create"></ion-icon>
               </button>
             </sebm-google-map-info-window>
