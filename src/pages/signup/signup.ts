@@ -3,12 +3,6 @@ import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth';
 
-/*
-  Generated class for the Signup page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
@@ -16,6 +10,12 @@ import { AuthService } from '../../providers/auth';
 export class SignupPage {
   role: string = "User";
 
+  /*
+   * Initialize local services and controllers
+   * @param {AuthService} authService - Service for authentication
+   * @param {LoadingController} loadingCtrl - Declare loading controller
+   * @param {AlertControlller} alertCtrl - Declare alert controlller
+   */
   constructor(
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,

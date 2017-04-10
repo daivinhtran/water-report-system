@@ -21,6 +21,13 @@ export class HistoricTrendPage {
 
   charts: any[] = [];
 
+  /*
+   * Initialize local services and controllers
+   * @param {AuthService} authService - Service for authentication
+   * @param {LoadingController} loadingCtrl - Declare loading controller
+   * @param {AlertControlller} alertCtrl - Declare alert controlller
+   * @param {NavController} navController - Declare nav controlller
+   */
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
